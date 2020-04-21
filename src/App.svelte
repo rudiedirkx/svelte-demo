@@ -26,11 +26,22 @@ let blockReservations = [
 
 const bcAdd = e => {
 	blockedCourts = [...blockedCourts, {id: id(), court: court()}];
-	console.log('blockedCourts', blockedCourts);
+	// console.log('blockedCourts', blockedCourts);
 };
+const bcDelete = function(e) {
+	const id = this.closest('tr').dataset.id;
+	blockedCourts = blockedCourts.filter(obj => obj.id != id);
+};
+
 const brAdd = e => {
 	blockReservations = [...blockReservations, {id: id(), court: court(), player: player()}];
-	console.log('blockReservations', blockReservations);
+	// console.log('blockReservations', blockReservations);
+};
+const brDelete = function(e) {
+	const id = this.closest('tr').dataset.id;
+	if (confirm(`Do you really really want to delete row # ${id}?`)) {
+		blockReservations = blockReservations.filter(obj => obj.id != id);
+	}
 };
 </script>
 
@@ -38,8 +49,8 @@ const brAdd = e => {
 
 <h2>Blocked courts ({blockedCourts.length})</h2>
 
-<BlockedCourtsTable rows={blockedCourts} onAdd={bcAdd} />
+<BlockedCourtsTable rows={blockedCourts} onAdd={bcAdd} onDelete={bcDelete} />
 
 <h2>Block reservations ({blockReservations.length})</h2>
 
-<BlockReservationsTable rows={blockReservations} onAdd={brAdd} />
+<BlockReservationsTable rows={blockReservations} onAdd={brAdd} onDelete={brDelete} />

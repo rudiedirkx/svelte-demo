@@ -637,7 +637,7 @@ var app = (function () {
 
 	// (17:2) {#each rows as row}
 	function create_each_block(ctx) {
-		var tr, td0, t0_value = ctx.row.id, t0, t1, td1, t2_value = ctx.row.court, t2, t3, td2, t4, current;
+		var tr, td0, t0_value = ctx.row.id, t0, t1, td1, t2_value = ctx.row.court, t2, t3, td2, t4, tr_data_id_value, current;
 
 		var if_block = (ctx.onDelete) && create_if_block(ctx);
 
@@ -653,9 +653,10 @@ var app = (function () {
 				td2 = element("td");
 				if (if_block) if_block.c();
 				t4 = space();
-				add_location(td0, file$1, 18, 4, 344);
-				add_location(td1, file$1, 19, 4, 366);
-				add_location(td2, file$1, 20, 4, 391);
+				add_location(td0, file$1, 18, 4, 363);
+				add_location(td1, file$1, 19, 4, 385);
+				add_location(td2, file$1, 20, 4, 410);
+				tr.dataset.id = tr_data_id_value = ctx.row.id;
 				add_location(tr, file$1, 17, 3, 335);
 			},
 
@@ -701,6 +702,10 @@ var app = (function () {
 
 					if_block.o(1);
 					check_outros();
+				}
+
+				if ((!current || changed.rows) && tr_data_id_value !== (tr_data_id_value = ctx.row.id)) {
+					tr.dataset.id = tr_data_id_value;
 				}
 			},
 
@@ -814,7 +819,7 @@ var app = (function () {
 				if (changed.onAdd) addicon_changes.onClick = ctx.onAdd;
 				addicon.$set(addicon_changes);
 
-				if (changed.onDelete || changed.rows) {
+				if (changed.rows || changed.onDelete) {
 					each_value = ctx.rows;
 
 					for (var i = 0; i < each_value.length; i += 1) {
@@ -979,7 +984,7 @@ var app = (function () {
 
 	// (18:2) {#each rows as row}
 	function create_each_block$1(ctx) {
-		var tr, td0, t0_value = ctx.row.id, t0, t1, td1, t2_value = ctx.row.player, t2, t3, td2, t4_value = ctx.row.court, t4, t5, td3, t6, current;
+		var tr, td0, t0_value = ctx.row.id, t0, t1, td1, t2_value = ctx.row.player, t2, t3, td2, t4_value = ctx.row.court, t4, t5, td3, t6, tr_data_id_value, current;
 
 		var if_block = (ctx.onDelete) && create_if_block$1(ctx);
 
@@ -998,10 +1003,11 @@ var app = (function () {
 				td3 = element("td");
 				if (if_block) if_block.c();
 				t6 = space();
-				add_location(td0, file$2, 19, 4, 363);
-				add_location(td1, file$2, 20, 4, 385);
-				add_location(td2, file$2, 21, 4, 411);
-				add_location(td3, file$2, 22, 4, 436);
+				add_location(td0, file$2, 19, 4, 382);
+				add_location(td1, file$2, 20, 4, 404);
+				add_location(td2, file$2, 21, 4, 430);
+				add_location(td3, file$2, 22, 4, 455);
+				tr.dataset.id = tr_data_id_value = ctx.row.id;
 				add_location(tr, file$2, 18, 3, 354);
 			},
 
@@ -1054,6 +1060,10 @@ var app = (function () {
 
 					if_block.o(1);
 					check_outros();
+				}
+
+				if ((!current || changed.rows) && tr_data_id_value !== (tr_data_id_value = ctx.row.id)) {
+					tr.dataset.id = tr_data_id_value;
 				}
 			},
 
@@ -1173,7 +1183,7 @@ var app = (function () {
 				if (changed.onAdd) addicon_changes.onClick = ctx.onAdd;
 				addicon.$set(addicon_changes);
 
-				if (changed.onDelete || changed.rows) {
+				if (changed.rows || changed.onDelete) {
 					each_value = ctx.rows;
 
 					for (var i = 0; i < each_value.length; i += 1) {
@@ -1293,7 +1303,8 @@ var app = (function () {
 		var blockedcourtstable = new BlockedCourtsTable({
 			props: {
 			rows: ctx.blockedCourts,
-			onAdd: ctx.bcAdd
+			onAdd: ctx.bcAdd,
+			onDelete: ctx.bcDelete
 		},
 			$$inline: true
 		});
@@ -1301,7 +1312,8 @@ var app = (function () {
 		var blockreservationstable = new BlockReservationsTable({
 			props: {
 			rows: ctx.blockReservations,
-			onAdd: ctx.brAdd
+			onAdd: ctx.brAdd,
+			onDelete: ctx.brDelete
 		},
 			$$inline: true
 		});
@@ -1326,9 +1338,9 @@ var app = (function () {
 				t11 = text(")");
 				t12 = space();
 				blockreservationstable.$$.fragment.c();
-				add_location(h1, file$3, 36, 0, 1115);
-				add_location(h20, file$3, 38, 0, 1188);
-				add_location(h21, file$3, 42, 0, 1297);
+				add_location(h1, file$3, 47, 0, 1476);
+				add_location(h20, file$3, 49, 0, 1549);
+				add_location(h21, file$3, 53, 0, 1678);
 			},
 
 			l: function claim(nodes) {
@@ -1369,6 +1381,7 @@ var app = (function () {
 				var blockedcourtstable_changes = {};
 				if (changed.blockedCourts) blockedcourtstable_changes.rows = ctx.blockedCourts;
 				if (changed.bcAdd) blockedcourtstable_changes.onAdd = ctx.bcAdd;
+				if (changed.bcDelete) blockedcourtstable_changes.onDelete = ctx.bcDelete;
 				blockedcourtstable.$set(blockedcourtstable_changes);
 
 				if ((!current || changed.blockReservations) && t10_value !== (t10_value = ctx.blockReservations.length)) {
@@ -1378,6 +1391,7 @@ var app = (function () {
 				var blockreservationstable_changes = {};
 				if (changed.blockReservations) blockreservationstable_changes.rows = ctx.blockReservations;
 				if (changed.brAdd) blockreservationstable_changes.onAdd = ctx.brAdd;
+				if (changed.brDelete) blockreservationstable_changes.onDelete = ctx.brDelete;
 				blockreservationstable.$set(blockreservationstable_changes);
 			},
 
@@ -1444,18 +1458,31 @@ var app = (function () {
 
 	const bcAdd = e => {
 		$$invalidate('blockedCourts', blockedCourts = [...blockedCourts, {id: id(), court: court()}]);
-		console.log('blockedCourts', blockedCourts);
+		// console.log('blockedCourts', blockedCourts);
 	};
+	const bcDelete = function(e) {
+		const id = this.closest('tr').dataset.id;
+		$$invalidate('blockedCourts', blockedCourts = blockedCourts.filter(obj => obj.id != id));
+	};
+
 	const brAdd = e => {
 		$$invalidate('blockReservations', blockReservations = [...blockReservations, {id: id(), court: court(), player: player()}]);
-		console.log('blockReservations', blockReservations);
+		// console.log('blockReservations', blockReservations);
+	};
+	const brDelete = function(e) {
+		const id = this.closest('tr').dataset.id;
+		if (confirm(`Do you really really want to delete row # ${id}?`)) {
+			$$invalidate('blockReservations', blockReservations = blockReservations.filter(obj => obj.id != id));
+		}
 	};
 
 		return {
 			blockedCourts,
 			blockReservations,
 			bcAdd,
-			brAdd
+			bcDelete,
+			brAdd,
+			brDelete
 		};
 	}
 

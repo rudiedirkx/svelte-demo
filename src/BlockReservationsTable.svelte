@@ -16,7 +16,7 @@ export let rows, onAdd, onDelete = null;
 	</thead>
 	<tbody>
 		{#each rows as row}
-			<tr>
+			<tr data-id="{row.id}">
 				<td>{row.id}</td>
 				<td>{row.player}</td>
 				<td>{row.court}</td>
