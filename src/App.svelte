@@ -2,22 +2,35 @@
 import BlockedCourtsTable from './BlockedCourtsTable.svelte';
 import BlockReservationsTable from './BlockReservationsTable.svelte';
 
+const int = (min, max) => parseInt(Math.random() * (max - min + 1)) + min;
+const id = () => int(1, 1e6);
+const word = (ucfirst = false) => {
+	const words = ['lorem', 'ipsum', 'dolor', 'sit', 'amet'];
+	let word = words[int(0, words.length - 1)];
+	if (ucfirst) {
+		word = word.replace(/^./, m => m.toUpperCase());
+	}
+	return word;
+};
+const court = () => `${word(true)} ${int(1, 5)}`;
+const player = () => `${word(true)} ${word(true)}`;
+
 let blockedCourts = [
-	{id: 3, court: 'Lorem 1'},
-	{id: 4, court: 'Amet 2'},
+	{id: id(), court: 'Lorem 1'},
+	{id: id(), court: 'Amet 2'},
 ];
 let blockReservations = [
-	{id: 5, court: 'Lorem 2', player: 'Amet Ipsum'},
-	{id: 11, court: 'Lorem 1', player: 'Ipsum Lorem'},
+	{id: id(), court: 'Lorem 2', player: 'Amet Ipsum'},
+	{id: id(), court: 'Lorem 1', player: 'Ipsum Lorem'},
 ];
 
 const bcAdd = e => {
-	blockedCourts.push({court: 'tmp'});
-	console.log({blockedCourts});
+	blockedCourts = [...blockedCourts, {id: id(), court: court()}];
+	console.log('blockedCourts', blockedCourts);
 };
 const brAdd = e => {
-	blockReservations.push({court: 'tmp'});
-	console.log({blockReservations});
+	blockReservations = [...blockReservations, {id: id(), court: court(), player: player()}];
+	console.log('blockReservations', blockReservations);
 };
 </script>
 
